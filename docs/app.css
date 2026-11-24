@@ -1,5 +1,5 @@
 
-:root{--navy:#1F3864;--line:#C9D4E3;--bg:#F2F7FB;--ink:#17202B;--mute:#5A6B80;
+:root{--navy:#1D3E9E;--accent:#E8731B;--line:#D7DEE8;--bg:#F6F8FB;--ink:#16243A;--mute:#5A6B80;
  --b1:#E3E9F1;--b2:#EAF3EC;--b3:#FBF3E7;--b4:#F6EFE9;--ok:#3C8A4E;--no:#B5655A}
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}
@@ -7,15 +7,19 @@ body{font-family:'Sarabun',system-ui,sans-serif;background:var(--bg);color:var(-
  font-size:17px;line-height:1.75;-webkit-text-size-adjust:100%}
 a{color:var(--navy)}
 .wrap{max-width:900px;margin:0 auto;padding:0 16px 56px}
-header.top{background:var(--navy);color:#fff;padding:18px 0 16px}
+/* แถบหัวหน้า · แบบ ก สว่างมินิมอล (ผู้เขียนเลือก 24 พ.ย. 2569)
+   พื้นขาว เส้นไล่สีแบรนด์บาง 3 px ด้านบน แท็บแบบขีดใต้ · ภาษาออกแบบของตำราสากล */
+.topline{height:3px;background:linear-gradient(90deg,var(--accent),var(--navy))}
+header.top{background:#fff;color:var(--ink);padding:15px 0 0;border-bottom:1px solid var(--line)}
 header.top .wrap{padding-bottom:0}
-header.top a{color:#CBDAF0;text-decoration:none;font-size:15px}
-h1{font-size:23px;margin:6px 0 2px;font-weight:600;line-height:1.4}
-header.top .en{color:#B9CCE6;font-size:14px;margin:0}
-.tabs{display:flex;flex-wrap:wrap;gap:6px;margin:18px 0 14px}
-.tabs button{font-family:inherit;font-size:15px;border:1px solid var(--line);
- background:#fff;color:var(--navy);border-radius:999px;padding:7px 15px;cursor:pointer}
-.tabs button[aria-selected=true]{background:var(--navy);color:#fff;border-color:var(--navy)}
+header.top a{color:var(--mute);text-decoration:none;font-size:14.5px}
+h1{font-size:23px;margin:10px 0 1px;font-weight:600;line-height:1.4;letter-spacing:-.2px}
+header.top .en{color:var(--mute);font-size:14px;margin:0 0 12px}
+.tabs{display:flex;flex-wrap:wrap;gap:22px;margin:0}
+.tabs button{font-family:inherit;font-size:15px;border:0;background:none;
+ color:var(--mute);padding:9px 0 11px;cursor:pointer;border-bottom:2.5px solid transparent}
+.tabs button[aria-selected=true]{color:var(--navy);border-color:var(--accent);font-weight:600}
+section{padding-top:16px}
 section[hidden]{display:none}
 .card{background:#fff;border:1px solid var(--line);border-radius:10px;padding:16px 18px;margin:12px 0}
 .q{font-weight:600;margin:0 0 4px}
@@ -34,7 +38,7 @@ section[hidden]{display:none}
 .why div{margin:4px 0}
 .badge{display:inline-block;font-size:13px;background:var(--b1);color:var(--navy);
  border-radius:999px;padding:1px 10px;margin-left:8px;vertical-align:middle}
-.score{position:sticky;bottom:0;background:var(--navy);color:#fff;border-radius:10px;
+.score{position:sticky;bottom:0;background:var(--ink);color:#fff;border-radius:10px;
  padding:11px 16px;margin-top:18px;font-size:16px}
 label.chk{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--line)}
 label.chk:last-child{border-bottom:0}
@@ -55,15 +59,17 @@ ul.ch{list-style:none;padding:0;margin:0;display:grid;gap:8px;
 ul.ch a{display:block;background:#fff;border:1px solid var(--line);border-radius:10px;
  padding:11px 14px;text-decoration:none}
 ul.ch a:hover{border-color:var(--navy)}
+.q{font-weight:600;margin:0 0 4px}
+.opt .k{color:var(--navy)}
 ul.ch b{color:var(--navy)}
-.brand{background:#fff;border-radius:9px;padding:6px 12px;display:inline-flex;
- align-items:center;box-shadow:0 1px 3px rgba(0,0,0,.10)}
+.brand{display:inline-flex;align-items:center}
 .brand img{display:block;height:30px;width:auto}
 header.top .barrow{display:flex;align-items:center;justify-content:space-between;gap:12px}
 footer .brand{margin-bottom:8px}
 footer .brand img{height:24px}
 #gate .logo{text-align:center;margin:0 0 10px}
 #gate .logo img{height:40px;width:auto;max-width:72%}
+#gate .box{border-top:3px solid var(--accent)}
 @media(max-width:430px){.brand img{height:24px}header.top .barrow{gap:8px}}
 #gate{position:fixed;inset:0;background:var(--bg);z-index:99;display:flex;
  align-items:center;justify-content:center;padding:18px}
