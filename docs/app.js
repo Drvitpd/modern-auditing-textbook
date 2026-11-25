@@ -51,6 +51,36 @@ function selfcheck(d){
   host.appendChild(l)});
  pct();
 }
+function locked(host,msg){
+ host.innerHTML='<div class="card"><p class="mute">'+esc(msg)+'</p></div>';
+}
+function cases(d){
+ var host=document.getElementById('cases'); if(!host) return;
+ if(!d.cases){locked(host,'ส่วนนี้เปิดเมื่อใส่รหัสเข้าแอปของเล่มนี้');return}
+ host.innerHTML='';
+ d.cases.forEach(function(c){
+  var w=document.createElement('div');w.className='card';
+  var h='<p class="q">กรณีศึกษาที่ '+esc(c.no)+' · '+esc(c.title)+'</p>';
+  (c.text||[]).forEach(function(x){h+='<p>'+esc(x)+'</p>'});
+  if(c.guidance&&c.guidance.length){
+   h+='<details><summary>เปิดแนวการตอบ</summary>';
+   c.guidance.forEach(function(x){h+='<p>'+esc(x)+'</p>'});
+   h+='</details>'}
+  w.innerHTML=h;host.appendChild(w)});
+}
+function subjective(d){
+ var host=document.getElementById('subj'); if(!host) return;
+ if(!d.subjective){locked(host,'ส่วนนี้เปิดเมื่อใส่รหัสเข้าแอปของเล่มนี้');return}
+ host.innerHTML='';var lvl=null,key=d.subjective_key||{};
+ d.subjective.forEach(function(q,i){
+  if(q.level!==lvl){lvl=q.level;
+   var h3=document.createElement('h3');h3.style.color='var(--navy)';
+   h3.textContent=lvl;host.appendChild(h3)}
+  var w=document.createElement('div');w.className='card';
+  var h='<p>'+esc(q.q)+'</p>',k=key[String(i+1)]||key[i+1];
+  if(k) h+='<details><summary>เปิดแนวคำตอบและเกณฑ์การให้คะแนน</summary>'+k+'</details>';
+  w.innerHTML=h;host.appendChild(w)});
+}
 function gloss(d){
  var host=document.getElementById('gbody');
  function draw(f){
