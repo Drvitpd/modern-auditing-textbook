@@ -21,6 +21,16 @@
    var pt=await crypto.subtle.decrypt({name:'AES-GCM',iv:b64(lock.iv)},key,b64(lock.ct));
    return JSON.parse(new TextDecoder().decode(pt));
  }
+ /* หนึ่งบทรับรหัสได้หลายตัว · ไล่ลองทุกล็อกจนถอดได้
+    รหัสฉบับพิมพ์กับรหัสฉบับ E-book เป็นคนละชุด แต่หุ้มเนื้อหาชุดเดียวกัน */
+ function unlockAny(locks,code){
+   var ls=Array.isArray(locks)?locks:[locks],i=0;
+   function next(){
+     if(i>=ls.length)return Promise.reject(new Error('รหัสไม่ถูกต้อง'));
+     return unlock(ls[i++],code).catch(next);
+   }
+   return next();
+ }
  /* หน้าบทเรียกตัวนี้แทน fetch ตรง ๆ */
  window.openChapter=function(n){
   var file='data/ch'+(n<10?'0':'')+n+'.json';
@@ -29,7 +39,7 @@
    function merge(x){Object.keys(x).forEach(function(k){d[k]=x[k]});
      delete d['ล็อก'];var g=document.getElementById('gate');if(g)g.remove();return d}
    var saved=get(K+'-'+d['เล่ม']);
-   if(saved){return unlock(d['ล็อก'],saved).then(merge).catch(function(){return ask(d,merge)})}
+   if(saved){return unlockAny(d['ล็อก'],saved).then(merge).catch(function(){return ask(d,merge)})}
    return ask(d,merge);
   });
  };
@@ -41,7 +51,7 @@
    if(s)s.addEventListener('change',function(){i.type=s.checked?'text':'password'});
    f.addEventListener('submit',function(ev){ev.preventDefault();
      e.textContent='กำลังตรวจรหัส…';
-     unlock(d['ล็อก'],i.value).then(function(x){
+     unlockAny(d['ล็อก'],i.value).then(function(x){
        put(K+'-'+d['เล่ม'],norm(i.value),r&&r.checked);res(merge(x))})
       .catch(function(){
        e.textContent='รหัสไม่ถูกต้อง โปรดดูรหัสที่พิมพ์ไว้ในตำราเล่มนี้';i.select()});
